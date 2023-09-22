@@ -6,7 +6,8 @@
 
 # LOADING LIBS ------------------------------------------------------------
 
-install.packages("tidyverse")
+install.packages (c("tidyverse", "dplyr"))
+library(dplyr)
 
 # LOADING DATA ------------------------------------------------------------
 
@@ -41,4 +42,6 @@ exp_22273714<-jsonlite::fromJSON("https://sedeaplicaciones.minetur.gob.es/Servic
 pablo<-8 # assigning values
 
 
+# TIDYVERSE COMMANDS ------------------------------------------------------
 
+exp_22273714 %>% glimpse() %>% View()
