@@ -10,6 +10,7 @@ install.packages("tidyverse")
 
 # LOADING DATA ------------------------------------------------------------
 
+exp_22273714<-jsonlite::fromJSON("https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/")
 
 # SHORTCUTS ---------------------------------------------------------------
 
