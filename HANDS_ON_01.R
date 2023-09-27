@@ -19,6 +19,7 @@ exp_22273714<-jsonlite::fromJSON("https://sedeaplicaciones.minetur.gob.es/Servic
 # %>% = pipe generator = SHIFT + CTRL + M
 # NEW INDEX = SHIFT + CTRL + R
 # CTRL + ENTER = run line
+# assign value = ALT + -
 
 
 # GIT COMMANDS ------------------------------------------------------------
@@ -42,6 +43,12 @@ exp_22273714<-jsonlite::fromJSON("https://sedeaplicaciones.minetur.gob.es/Servic
 pablo<-8 # assigning values
 
 
+
 # TIDYVERSE COMMANDS ------------------------------------------------------
 
-exp_22273714 %>% glimpse() %>% View()
+
+# 27 DE SEPTIEMBRE --------------------------------------------------------
+
+str(exp_22273714) # get datatype
+df <- exp_22273714$ListaEESSPrecio # get readable data
+
