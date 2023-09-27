@@ -6,8 +6,8 @@
 
 # LOADING LIBS ------------------------------------------------------------
 
-install.packages (c("tidyverse", "dplyr"))
-library(dplyr)
+install.packages (c("tidyverse", "dplyr", "janitor"))
+library("dplyr", "janitor")
 
 # LOADING DATA ------------------------------------------------------------
 
@@ -51,4 +51,7 @@ pablo<-8 # assigning values
 
 str(exp_22273714) # get datatype
 df <- exp_22273714$ListaEESSPrecio # get readable data
+df %>% glimpse()
+
+df %>% janitor::clean_names() %>% glimpse()
 
