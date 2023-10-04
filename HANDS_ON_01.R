@@ -6,8 +6,8 @@
 
 # LOADING LIBS ------------------------------------------------------------
 
-install.packages (c("tidyverse", "dplyr", "janitor"))
-library("dplyr", "janitor")
+install.packages (c("tidyverse", "dplyr", "janitor", "xlsx"))
+library("dplyr", "janitor", "readr", "xlsx")
 
 # LOADING DATA ------------------------------------------------------------
 
@@ -54,4 +54,34 @@ df <- exp_22273714$ListaEESSPrecio # get readable data
 df %>% glimpse()
 
 df %>% janitor::clean_names() %>% glimpse()
+
+# fin de la clase de hoy, siguiente hacemos la entrega.
+
+
+# WORKING W PIPES ---------------------------------------------------------
+
+
+cd <- df %>%   janitor::clean_names() %>% glimpse()
+clean_data <-  df %>% readr::type_convert(locale = readr::locale(decimal_mark = ",")) %>% janitor::clean_names()
+clean_data %>% glimpse()
+
+
+# DEALING W DATA ----------------------------------------------------------
+
+villa_boa_gas <- clean_data %>% select(precio_gasoleo_a, rotulo, direccion, localidad) %>% 
+  filter(localidad=="VILLAVICIOSA DE ODON"|localidad=="BOADILLA DEL MONTE") %>% 
+  arrange(precio_gasoleo_a) %>% View()
+
+gaso_barata_madrid <- clean_data %>% select(precio_gasoleo_a, rotulo, direccion, localidad, provincia) %>% 
+  filter(provincia=="MADRID") %>% 
+  arrange(precio_gasoleo_a) %>% View()
+
+
+# STORING DATA ------------------------------------------------------------
+
+write.csv(gaso_barata_madrid, "gaso_barata_madrid.csv")
+xlsx::write.xlsx(gaso_barata_madrid, "gaso_barata_madrid_2.xlsx")
+
+INFORME_MADRID <- readxl::(gaso_barata_madrid, "gaso_barata_madrid.xlsx")
+
 
