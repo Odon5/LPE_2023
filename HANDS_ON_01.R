@@ -7,7 +7,7 @@
 # LOADING LIBS ------------------------------------------------------------
 
 install.packages (c("tidyverse", "dplyr", "janitor", "xlsx"))
-library("dplyr", "janitor", "readr", "xlsx")
+library("dplyr", "janitor", "readr")
 
 # LOADING DATA ------------------------------------------------------------
 
@@ -63,7 +63,7 @@ df %>% janitor::clean_names() %>% glimpse()
 
 cd <- df %>%   janitor::clean_names() %>% glimpse()
 clean_data <-  df %>% readr::type_convert(locale = readr::locale(decimal_mark = ",")) %>% janitor::clean_names()
-clean_data %>% glimpse()
+clean_data %>% View()
 
 
 # DEALING W DATA ----------------------------------------------------------
@@ -76,12 +76,17 @@ gaso_barata_madrid <- clean_data %>% select(precio_gasoleo_a, rotulo, direccion,
   filter(provincia=="MADRID") %>% 
   arrange(precio_gasoleo_a) %>% View()
 
+ballenoil_barata_madrid <- clean_data %>% select(precio_gasoleo_a, rotulo, direccion, localidad, provincia) %>% 
+  filter(rotulo=="BALLENOIL") %>% 
+  filter(provincia=="MADRID") %>%
+  arrange(precio_gasoleo_a) %>% View()
+
 
 # STORING DATA ------------------------------------------------------------
 
 write.csv(gaso_barata_madrid, "gaso_barata_madrid.csv")
 xlsx::write.xlsx(gaso_barata_madrid, "gaso_barata_madrid_2.xlsx")
 
-INFORME_MADRID <- readxl::(gaso_barata_madrid, "gaso_barata_madrid.xlsx")
+# INFORME_MADRID <- readxl::(gaso_barata_madrid, "gaso_barata_madrid.xlsx")
 
 
