@@ -74,12 +74,18 @@ villa_boa_gas <- clean_data %>% select(precio_gasoleo_a, rotulo, direccion, loca
 
 gaso_barata_madrid <- clean_data %>% select(precio_gasoleo_a, rotulo, direccion, localidad, provincia) %>% 
   filter(provincia=="MADRID") %>% 
-  arrange(precio_gasoleo_a) %>% View()
+  arrange(precio_gasoleo_a) %>% write.csv("gaso_barata_madrid.xls")
 
 ballenoil_barata_madrid <- clean_data %>% select(precio_gasoleo_a, rotulo, direccion, localidad, provincia) %>% 
   filter(rotulo=="BALLENOIL") %>% 
   filter(provincia=="MADRID") %>%
   arrange(precio_gasoleo_a) %>% View()
+
+
+resultados_ejercicio <- clean_data %>% select(precio_gasoleo_a, rotulo, direccion, localidad, provincia) %>% 
+  group_by(rotulo) %>%
+  summarise(media_precio = mean(precio_gasoleo_a, na.rm = TRUE)) %>%
+  arrange(media_precio) %>%View()
 
 
 # STORING DATA ------------------------------------------------------------
@@ -88,5 +94,17 @@ write.csv(gaso_barata_madrid, "gaso_barata_madrid.csv")
 xlsx::write.xlsx(gaso_barata_madrid, "gaso_barata_madrid_2.xlsx")
 
 # INFORME_MADRID <- readxl::(gaso_barata_madrid, "gaso_barata_madrid.xlsx")
+
+
+# DEALING W COLS ----------------------------------------------------------
+
+clean_data %>% 
+  mutate(low_cost = !rotulo %in% c("REPSOL", "CEPSA", "Q8", "BP", "SHELL", "CAMPSA", "GALP")) %>% View
+
+
+
+
+
+
 
 
