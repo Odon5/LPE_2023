@@ -6,12 +6,20 @@
 
 # LOADING LIBS ------------------------------------------------------------
 
-install.packages (c("tidyverse", "dplyr", "janitor", "xlsx"))
-library("dplyr", "janitor", "readr")
+install.packages (c("tidyverse", "dplyr", "janitor", "xlsx", "readxl"))
+library(dplyr)
+library(janitor)
+library(readr)
+library(readxl)
+
 
 # LOADING DATA ------------------------------------------------------------
 
 exp_22273714<-jsonlite::fromJSON("https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/")
+ruta_ccaa <- "C:/Users/Pablo/UEM/TERCERO/PRIMER_SEMESTRE/Lenguaje_programación/codccaa_OFFCIAL.xls"
+codccaa_OFFCIAL <- read_excel(ruta_ccaa)
+codccaa_OFFCIAL %>% View()
+
 
 # SHORTCUTS ---------------------------------------------------------------
 
@@ -103,6 +111,27 @@ clean_data %>%
 
 
 
+
+
+# 27/10/23 - CCAA Y PROVINCIAS --------------------------------------------
+
+
+
+codccaa_OFFCIAL <- codccaa_OFFCIAL %>% slice(-1)
+codccaa_OFFCIAL %>% View()
+
+
+
+codccaa_OFFCIAL <- codccaa_OFFCIAL %>% 
+  rename(idccaa = "Relación de comunidades y ciudades autónomas con sus códigos")
+
+
+
+
+clean_data <- clean_data %>% 
+  left_join(codccaa_OFFCIAL, by = "idccaa")
+
+clean_data %>% View()
 
 
 
