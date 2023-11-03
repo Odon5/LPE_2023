@@ -18,6 +18,9 @@ library(readxl)
 exp_22273714<-jsonlite::fromJSON("https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/")
 ruta_ccaa <- "C:/Users/Pablo/UEM/TERCERO/PRIMER_SEMESTRE/Lenguaje_programación/codccaa_OFFCIAL.xls"
 codccaa_OFFCIAL <- read_excel(ruta_ccaa)
+pob_municipios <- "C:/Users/Pablo/UEM/TERCERO/PRIMER_SEMESTRE/Lenguaje_programación/LPE_MUNICIPIO/pobmun22.xlsx"
+pob_municipios <- read_excel(pob_municipios)
+pob_municipios %>% View()
 codccaa_OFFCIAL %>% View()
 
 
@@ -136,4 +139,17 @@ clean_data %>% View()
 
 
 
+# 03/11/23 ----------------------------------------------------------------
 
+
+pob_municipios %>% View()
+
+pob_municipios <- pob_municipios %>% 
+  rename(municipio = "NOMBRE")
+
+pob_join<-pob_municipios %>% select(municipio,POB22) 
+
+
+clean_data <- inner_join(clean_data,pob_join, by="municipio") %>% glimpse()
+
+clean_data %>% View()
